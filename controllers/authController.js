@@ -1,9 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
-
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // ✅ SIGNUP
 exports.signup = async (req, res) => {
