@@ -7,9 +7,6 @@ const app = express();
 
 // ✅ FIXED: Proper CORS config for multiple origins
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:5001",
   "https://my-sug-project.web.app",
   "https://mern-web-frontend-amber.vercel.app/"
 ];
