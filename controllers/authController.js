@@ -70,30 +70,3 @@ exports.login = async (req, res) => {
 };
 
 // ✅ GOOGLE LOGIN
-exports.googleLogin = async (req, res) => {
-  const { token } = req.body;
-  try {
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-
-    const payload = ticket.getPayload();
-    const { email, name } = payload;
-
-    let user = await User.findOne({ email });
-    if (!user) {
-      user = new User({ name, email, password: "" }); // No password needed for Google login
-      await user.save();
-    }
-
-    const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.json({ token: jwtToken, user: { id: user._id, name: user.name } });
-
-  } catch (err) {
-    res.status(400).json({ msg: "Google Login Failed", error: err.message });
-  }
-};
